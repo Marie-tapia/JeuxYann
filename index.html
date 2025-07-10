@@ -10,210 +10,17 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #2d3748, #1a202c);
             color: #e2e8f0;
             overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
         }
 
         .game-container {
             position: relative;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 30%, #0f3460 70%, #1a1a2e 100%);
             overflow: hidden;
-        }
-
-        /* Système de parallaxe avec SVG décors */
-        .background-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0%;
-            left: 0%;
-            pointer-events: none;
-            transition: transform 0.1s ease-out;
-        }
-
-        /* Couche de brouillard lointain */
-        .fog-layer {
-            background: radial-gradient(ellipse at center, rgba(100, 100, 120, 0.1) 0%, rgba(60, 60, 80, 0.05) 40%, transparent 80%);
-            opacity: 0.3;
-            z-index: 1;
-            animation: fogDrift 20s ease-in-out infinite;
-        }
-
-        /* Montagnes sombres au loin */
-        .mountain-layer {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-        background: linear-gradient(to top, #0b132b 60%, transparent 100%);
-        overflow: visible;
-        }
-
-        .mountain-layer::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 10%;
-        width: 200px;
-        height: 200px;
-        background: #1c2541;
-        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.4));
-        }
-
-        /* Montagne secondaire */
-        .mountain-layer::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 40%;
-        width: 150px;
-        height: 150px;
-        background: #3a5068;
-        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.3));
-        }
-
-        .grave-marker {
-            position: absolute;
-            width: 50px;
-            height: 90px;
-            background: #2a2a2a;
-            border-radius: 10px 10px 0 0;
-            opacity: 0.8;
-            box-shadow: inset 0 0 5px #1a1a1a;
-        }
-
-        .grave-marker::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 2px;
-            background: #1a1a1a;
-            border-radius: 1px;
-        }
-
-        .grave-marker::after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 8px;
-            background: #1a1a1a;
-            border-radius: 1px;
-        }
-
-
-        /* Arbres morts et sombres */
-        .tree-layer {
-            z-index: 3;
-            opacity: 0.8;
-        }
-
-        /* Chemins et ruines */
-        .path-layer {
-            z-index: 4;
-            opacity: 0.9;
-        }
-
-        /* Structures au premier plan */
-        .structure-layer {
-            z-index: 5;
-            opacity: 0.7;
-        }
-
-        /* Génération procédurale des décors */
-        .tree {
-            position: absolute;
-            pointer-events: none;
-        }
-
-        .dead-tree {
-            width: 100px;
-            height: 150px;
-            background: linear-gradient(to top, #2d2d2d 0%, #1a1a1a 70%, transparent 100%);
-            clip-path: polygon(45% 0%, 55% 0%, 60% 20%, 70% 25%, 65% 30%, 75% 40%, 70% 45%, 80% 60%, 75% 65%, 52% 100%, 48% 100%, 25% 65%, 20% 60%, 30% 45%, 25% 40%, 35% 30%, 30% 25%, 40% 20%);
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-        }
-
-        .dead-tree::before {
-            content: '';
-            position: absolute;
-            top: 15%;
-            left: 20%;
-            width: 20px;
-            height: 30px;
-            background: linear-gradient(45deg, transparent 0%, #1a1a1a 30%, transparent 70%);
-            clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-        }
-
-        .dead-tree::after {
-            content: '';
-            position: absolute;
-            top: 25%;
-            right: 15%;
-            width: 25px;
-            height: 35px;
-            background: linear-gradient(-45deg, transparent 0%, #1a1a1a 30%, transparent 70%);
-            clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
-        }
-
-        .twisted-tree {
-            width: 80px;
-            height: 140px;
-            background: radial-gradient(ellipse at bottom, #2d2d2d 0%, #1a1a1a 60%, transparent 100%);
-            clip-path: polygon(30% 0%, 70% 0%, 85% 15%, 75% 25%, 90% 35%, 80% 45%, 85% 60%, 75% 70%, 60% 100%, 40% 100%, 25% 70%, 15% 60%, 20% 45%, 10% 35%, 25% 25%, 15% 15%);
-            transform: rotate(-5deg);
-        }
-
-        .house-distant {
-            position: absolute;
-            width: 40px;
-            height: 35px;
-            background: linear-gradient(to bottom, #2d2d3d 0%, #1a1a2a 100%);
-            clip-path: polygon(0% 70%, 0% 100%, 100% 100%, 100% 70%, 85% 70%, 50% 30%, 15% 70%);
-            opacity: 0.4;
-            filter: blur(1px);
-        }
-
-        .house-distant::before {
-            content: '';
-            position: absolute;
-            top: 60%;
-            left: 20%;
-            width: 8px;
-            height: 12px;
-            background: rgba(255, 200, 100, 0.3);
-            border-radius: 2px;
-        }
-
-        .ruins {
-            position: absolute;
-            width: 30px;
-            height: 50px;
-            background: linear-gradient(to top, #3d3d3d 0%, #2d2d2d 70%, transparent 100%);
-            clip-path: polygon(0% 100%, 0% 20%, 30% 0%, 70% 20%, 100% 0%, 100% 100%, 80% 100%, 80% 60%, 20% 60%, 20% 100%);
-            opacity: 0.6;
-        }
-
-        .stone-path {
-            position: absolute;
-            width: 150px;
-            height: 20px;
-            background: linear-gradient(90deg, transparent 0%, rgba(100, 100, 100, 0.2) 30%, rgba(80, 80, 80, 0.3) 50%, rgba(100, 100, 100, 0.2) 70%, transparent 100%);
-            border-radius: 10px;
-            opacity: 0.4;
         }
 
         .mist {
@@ -225,6 +32,263 @@
             animation: mistFloat 15s ease-in-out infinite;
         }
 
+        /* Ciel nocturne avec étoiles */
+        .night-sky {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: radial-gradient(ellipse at center, #0f0f23 0%, #050510 100%);
+            z-index: 1;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #eee, transparent),
+                radial-gradient(1px 1px at 200px 90px, #fff, transparent),
+                radial-gradient(1px 1px at 250px 20px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 300px 60px, #eee, transparent),
+                radial-gradient(1px 1px at 350px 10px, #fff, transparent),
+                radial-gradient(1px 1px at 400px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 450px 40px, #eee, transparent),
+                radial-gradient(1px 1px at 500px 20px, #fff, transparent),
+                radial-gradient(1px 1px at 550px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 600px 50px, #fff, transparent),
+                radial-gradient(2px 2px at 650px 30px, #eee, transparent),
+                radial-gradient(1px 1px at 700px 90px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 750px 15px, #fff, transparent),
+                radial-gradient(2px 2px at 800px 65px, #eee, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Lune */
+        .moon {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #ffeaa7, #fdcb6e);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 234, 167, 0.5), 0 0 60px rgba(255, 234, 167, 0.3);
+            z-index: 2;
+        }
+
+        .moon::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 12px;
+            height: 8px;
+            background: rgba(253, 203, 110, 0.6);
+            border-radius: 50%;
+            box-shadow: 15px 10px 0 -2px rgba(253, 203, 110, 0.4), -5px 20px 0 -1px rgba(253, 203, 110, 0.5);
+        }
+
+        /* Nuages */
+        .clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(70, 70, 100, 0.4);
+            border-radius: 50px;
+            opacity: 0.6;
+        }
+
+        .cloud:before {
+            content: '';
+            position: absolute;
+            background: rgba(70, 70, 100, 0.4);
+            border-radius: 50px;
+        }
+
+        .cloud:after {
+            content: '';
+            position: absolute;
+            background: rgba(70, 70, 100, 0.4);
+            border-radius: 50px;
+        }
+
+        .cloud1 {
+            width: 100px;
+            height: 40px;
+            top: 20%;
+            left: 10%;
+            animation: cloudMove1 25s linear infinite;
+        }
+
+        .cloud1:before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud1:after {
+            width: 60px;
+            height: 40px;
+            top: -15px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 80px;
+            height: 30px;
+            top: 35%;
+            right: 20%;
+            animation: cloudMove2 30s linear infinite;
+        }
+
+        .cloud2:before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 15px;
+        }
+
+        .cloud2:after {
+            width: 50px;
+            height: 30px;
+            top: -10px;
+            right: 15px;
+        }
+
+        @keyframes cloudMove1 {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        @keyframes cloudMove2 {
+            0% { transform: translateX(calc(100vw + 100px)); }
+            100% { transform: translateX(-100px); }
+        }
+
+        /* Forêt sombre détaillée */
+        .dark-forest {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(180deg, transparent 0%, rgba(5, 10, 5, 0.8) 30%, rgba(0, 5, 0, 0.9) 100%);
+            z-index: 4;
+        }
+
+        .forest-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Arbres de fond */
+        .background-trees {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                /* Ligne d'arbres lointains */
+                radial-gradient(ellipse 25px 150px at 5% 100%, rgba(5, 10, 5, 0.9) 0%, transparent 80%),
+                radial-gradient(ellipse 30px 180px at 12% 100%, rgba(3, 8, 3, 0.8) 0%, transparent 80%),
+                radial-gradient(ellipse 20px 120px at 18% 100%, rgba(8, 12, 8, 0.9) 0%, transparent 80%),
+                radial-gradient(ellipse 35px 200px at 25% 100%, rgba(4, 9, 4, 0.8) 0%, transparent 80%),
+                radial-gradient(ellipse 28px 160px at 32% 100%, rgba(6, 11, 6, 0.9) 0%, transparent 80%),
+                radial-gradient(ellipse 32px 190px at 40% 100%, rgba(3, 8, 3, 0.8) 0%, transparent 80%),
+                radial-gradient(ellipse 22px 140px at 47% 100%, rgba(7, 12, 7, 0.9) 0%, transparent 80%),
+                radial-gradient(ellipse 38px 210px at 55% 100%, rgba(4, 9, 4, 0.8) 0%, transparent 80%),
+                radial-gradient(ellipse 26px 155px at 63% 100%, rgba(5, 10, 5, 0.9) 0%, transparent 80%),
+                radial-gradient(ellipse 33px 185px at 70% 100%, rgba(3, 8, 3, 0.8) 0%, transparent 80%),
+                radial-gradient(ellipse 24px 145px at 78% 100%, rgba(6, 11, 6, 0.9) 0%, transparent 80%),
+                radial-gradient(ellipse 36px 195px at 85% 100%, rgba(4, 9, 4, 0.8) 0%, transparent 80%),
+                radial-gradient(ellipse 29px 165px at 92% 100%, rgba(5, 10, 5, 0.9) 0%, transparent 80%),
+                radial-gradient(ellipse 31px 175px at 98% 100%, rgba(3, 8, 3, 0.8) 0%, transparent 80%);
+            z-index: 1;
+        }
+
+        /* Arbres de premier plan */
+        .foreground-trees {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                /* Grands arbres proches */
+                radial-gradient(ellipse 40px 250px at 8% 100%, rgba(10, 15, 10, 0.95) 0%, transparent 90%),
+                radial-gradient(ellipse 50px 300px at 15% 100%, rgba(8, 13, 8, 0.9) 0%, transparent 90%),
+                radial-gradient(ellipse 35px 220px at 22% 100%, rgba(12, 17, 12, 0.95) 0%, transparent 90%),
+                radial-gradient(ellipse 45px 280px at 30% 100%, rgba(9, 14, 9, 0.9) 0%, transparent 90%),
+                radial-gradient(ellipse 55px 320px at 38% 100%, rgba(7, 12, 7, 0.95) 0%, transparent 90%),
+                radial-gradient(ellipse 42px 260px at 46% 100%, rgba(11, 16, 11, 0.9) 0%, transparent 90%),
+                radial-gradient(ellipse 48px 290px at 54% 100%, rgba(8, 13, 8, 0.95) 0%, transparent 90%),
+                radial-gradient(ellipse 38px 240px at 62% 100%, rgba(10, 15, 10, 0.9) 0%, transparent 90%),
+                radial-gradient(ellipse 52px 310px at 70% 100%, rgba(7, 12, 7, 0.95) 0%, transparent 90%),
+                radial-gradient(ellipse 44px 270px at 78% 100%, rgba(9, 14, 9, 0.9) 0%, transparent 90%),
+                radial-gradient(ellipse 47px 285px at 86% 100%, rgba(8, 13, 8, 0.95) 0%, transparent 90%),
+                radial-gradient(ellipse 41px 255px at 94% 100%, rgba(10, 15, 10, 0.9) 0%, transparent 90%);
+            z-index: 2;
+        }
+
+        /* Détails des arbres - branches et texture */
+        .tree-details {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                /* Branches sombres */
+                radial-gradient(ellipse 3px 50px at 10% 70%, rgba(20, 15, 10, 0.8) 0%, transparent 90%),
+                radial-gradient(ellipse 2px 40px at 12% 65%, rgba(18, 13, 8, 0.7) 0%, transparent 90%),
+                radial-gradient(ellipse 4px 60px at 25% 75%, rgba(22, 17, 12, 0.8) 0%, transparent 90%),
+                radial-gradient(ellipse 3px 45px at 35% 68%, rgba(19, 14, 9, 0.7) 0%, transparent 90%),
+                radial-gradient(ellipse 2px 35px at 45% 72%, rgba(21, 16, 11, 0.8) 0%, transparent 90%),
+                radial-gradient(ellipse 4px 55px at 55% 69%, rgba(20, 15, 10, 0.7) 0%, transparent 90%),
+                radial-gradient(ellipse 3px 48px at 65% 74%, rgba(18, 13, 8, 0.8) 0%, transparent 90%),
+                radial-gradient(ellipse 2px 38px at 75% 66%, rgba(22, 17, 12, 0.7) 0%, transparent 90%),
+                radial-gradient(ellipse 4px 58px at 85% 71%, rgba(19, 14, 9, 0.8) 0%, transparent 90%);
+            z-index: 3;
+        }
+
+        /* Brouillard au sol */
+        .ground-fog {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(180deg, transparent 0%, rgba(40, 40, 60, 0.2) 50%, rgba(30, 30, 50, 0.4) 100%);
+            z-index: 5;
+        }
         @keyframes fogDrift {
             0%, 100% { transform: translateX(0px); }
             50% { transform: translateX(30px); }
@@ -328,6 +392,46 @@
             position: relative;
             width: 100%;
             height: 100%;
+            background: 
+            /* Arbres en arrière-plan */
+            radial-gradient(ellipse 40px 120px at 10% 100%, rgba(20, 20, 20, 0.9) 0%, transparent 70%),
+            radial-gradient(ellipse 50px 140px at 25% 100%, rgba(15, 15, 15, 0.8) 0%, transparent 70%),
+            radial-gradient(ellipse 35px 100px at 40% 100%, rgba(25, 25, 25, 0.9) 0%, transparent 70%),
+            radial-gradient(ellipse 45px 130px at 60% 100%, rgba(18, 18, 18, 0.8) 0%, transparent 70%),
+            radial-gradient(ellipse 55px 150px at 75% 100%, rgba(22, 22, 22, 0.9) 0%, transparent 70%),
+            radial-gradient(ellipse 40px 110px at 90% 100%, rgba(20, 20, 20, 0.8) 0%, transparent 70%),
+            
+            /* Couches d'arbres plus lointains */
+            radial-gradient(ellipse 30px 80px at 5% 100%, rgba(12, 12, 12, 0.6) 0%, transparent 70%),
+            radial-gradient(ellipse 35px 90px at 20% 100%, rgba(15, 15, 15, 0.7) 0%, transparent 70%),
+            radial-gradient(ellipse 28px 75px at 35% 100%, rgba(18, 18, 18, 0.6) 0%, transparent 70%),
+            radial-gradient(ellipse 32px 85px at 50% 100%, rgba(12, 12, 12, 0.7) 0%, transparent 70%),
+            radial-gradient(ellipse 38px 95px at 65% 100%, rgba(16, 16, 16, 0.6) 0%, transparent 70%),
+            radial-gradient(ellipse 30px 80px at 80% 100%, rgba(14, 14, 14, 0.7) 0%, transparent 70%),
+            radial-gradient(ellipse 33px 88px at 95% 100%, rgba(17, 17, 17, 0.6) 0%, transparent 70%),
+            
+            /* Brouillard au sol */
+            linear-gradient(180deg, transparent 0%, rgba(40, 40, 60, 0.1) 70%, rgba(30, 30, 50, 0.2) 100%),
+            
+            /* Fond de base */
+            linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        /* Effet de brouillard mobile */
+        .game-world::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 200px 50px at 20% 80%, rgba(60, 60, 80, 0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 150px 40px at 70% 90%, rgba(50, 50, 70, 0.03) 0%, transparent 70%),
+                radial-gradient(ellipse 180px 45px at 40% 85%, rgba(55, 55, 75, 0.04) 0%, transparent 70%);
+            animation: fogDrift 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .player {
@@ -766,9 +870,15 @@
             border-left: 3px solid #FFD700;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fogDrift {
+            0%, 100% { 
+                transform: translateX(0px); 
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translateX(30px); 
+                opacity: 0.3;
+            }
         }
 
         .spawn-indicator {
@@ -790,17 +900,30 @@
 <body>
     <div class="game-container">
         <div class="game-world" id="gameWorld" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
-          
-          <div class="background-layer mountain-layer"></div>
-          <div class="background-layer fog-layer"></div>
-      
-          <div class="background-layer tree-layer" id="treeLayer"></div>
-          <div class="background-layer path-layer" id="pathLayer"></div>
-          <div class="background-layer structure-layer" id="structureLayer"></div>
-      
+            <!-- Ciel nocturne -->
+            <div class="night-sky">
+                <div class="stars"></div>
+            </div>
+
+            <!-- Lune -->
+            <div class="moon"></div>
+
+            <!-- Nuages -->
+            <div class="clouds">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+            </div>
+
+            <!-- Forêt sombre -->
+            <div class="dark-forest">
+                <div class="forest-layer background-trees"></div>
+                <div class="forest-layer foreground-trees"></div>
+                <div class="forest-layer tree-details"></div>
+            </div>
+
+            <!-- Brouillard au sol -->
+            <div class="ground-fog"></div>
         </div>
-  
-      
 
             <div class="player" id="player">
                 <div class="player-hair"></div>
@@ -900,10 +1023,9 @@
                 this.gameRunning = true;
                 this.monstersKilled = 0;
                 this.monstersSpawned = 0;
-                this.totalMonstersToKill = 10;
+                this.totalMonstersToKill = 8;
                 
                 this.initializeElements();
-                this.generateDecor();
                 this.bindEvents();
                 this.updateUI();
                 this.gameLoop();
@@ -911,141 +1033,6 @@
                 this.addMessage("Yann se réveille dans une forêt mystérieuse...", "");
                 this.addMessage("Des créatures rôdent dans l'obscurité. Restez vigilant!", "combat");
             }
-
-            generateDecor() {
-                const treeLayer = document.getElementById('treeLayer');
-                const structureLayer = document.getElementById('structureLayer');
-                const pathLayer = document.getElementById('pathLayer');
-
-                // Vider les couches avant génération
-                treeLayer.innerHTML = '';
-                structureLayer.innerHTML = '';
-                pathLayer.innerHTML = '';
-
-                const container = document.querySelector('.game-container');
-                const maxWidth = container.clientWidth;
-                const maxHeight = container.clientHeight;
-
-                function randomPos(elementWidth, elementHeight, margin = 20) {
-                    const x = margin + Math.random() * (maxWidth - elementWidth - 2 * margin);
-                    const y = margin + Math.random() * (maxHeight - elementHeight - 2 * margin);
-                    return { x, y };
-                }
-
-                // Arbres morts (100x150)
-                for (let i = 0; i < 25; i++) {
-                    const tree = document.createElement('div');
-                    tree.classList.add('tree', Math.random() > 0.6 ? 'twisted-tree' : 'dead-tree');
-                    tree.style.position = 'absolute';
-
-                    const size = { w: 100, h: 150 };
-                    const pos = randomPos(size.w, size.h, 30);
-                    tree.style.left = pos.x + 'px';
-                    tree.style.top = pos.y + 'px';
-
-                    tree.style.transform = `rotate(${Math.random() * 30 - 15}deg) scale(${0.8 + Math.random() * 0.4})`;
-
-                    treeLayer.appendChild(tree);
-                }
-
-                // Buissons flétris (30x25)
-                for (let i = 0; i < 15; i++) {
-                    const bush = document.createElement('div');
-                    bush.classList.add('withered-bush');
-                    bush.style.position = 'absolute';
-
-                    const size = { w: 30, h: 25 };
-                    const pos = randomPos(size.w, size.h, 20);
-                    bush.style.left = pos.x + 'px';
-                    bush.style.top = pos.y + 'px';
-
-                    bush.style.transform = `scale(${0.7 + Math.random() * 0.5})`;
-
-                    treeLayer.appendChild(bush);
-                }
-
-                // Maisons lointaines (40x35)
-                for (let i = 0; i < 5; i++) {
-                    const house = document.createElement('div');
-                    house.classList.add('house-distant');
-                    house.style.position = 'absolute';
-
-                    const size = { w: 40, h: 35 };
-                    const pos = randomPos(size.w, size.h, 30);
-                    house.style.left = pos.x + 'px';
-                    house.style.top = pos.y + 'px';
-
-                    structureLayer.appendChild(house);
-                }
-
-                // Ruines (30x50)
-                for (let i = 0; i < 8; i++) {
-                    const ruin = document.createElement('div');
-                    ruin.classList.add('ruins');
-                    ruin.style.position = 'absolute';
-
-                    const size = { w: 30, h: 50 };
-                    const pos = randomPos(size.w, size.h, 40);
-                    ruin.style.left = pos.x + 'px';
-                    ruin.style.top = pos.y + 'px';
-
-                    ruin.style.transform = `rotate(${Math.random() * 20 - 10}deg) scale(${0.9 + Math.random() * 0.3})`;
-
-                    structureLayer.appendChild(ruin);
-                }
-
-                // Tombes (50x90)
-                for (let i = 0; i < 10; i++) {
-                    const grave = document.createElement('div');
-                    grave.classList.add('grave-marker');
-                    grave.style.position = 'absolute';
-
-                    const size = { w: 50, h: 90 };
-                    const pos = randomPos(size.w, size.h, 40);
-                    grave.style.left = pos.x + 'px';
-                    grave.style.top = pos.y + 'px';
-
-                    grave.style.transform = `rotate(${Math.random() * 30 - 15}deg) scale(${0.8 + Math.random() * 0.4})`;
-
-                    structureLayer.appendChild(grave);
-                }
-
-                // Chemins (150x20)
-                for (let i = 0; i < 6; i++) {
-                    const path = document.createElement('div');
-                    path.classList.add('stone-path');
-                    path.style.position = 'absolute';
-
-                    const size = { w: 150, h: 20 };
-                    const pos = randomPos(size.w, size.h, 50);
-                    path.style.left = pos.x + 'px';
-                    path.style.top = pos.y + 'px';
-
-                    path.style.transform = `rotate(${Math.random() * 30 - 15}deg) scale(${0.9 + Math.random() * 0.3})`;
-
-                    pathLayer.appendChild(path);
-                }
-            }
-
-
-
-
-
-
-            updateBackgroundPosition() {
-                const fog = document.querySelector('.fog-layer');
-                const mountain = document.querySelector('.mountain-layer');
-                const trees = document.querySelector('.tree-layer');
-                const path = document.querySelector('.path-layer');
-                const structure = document.querySelector('.structure-layer');
-
-                if (fog) fog.style.transform = `translate(${this.player.x * -0.01}px, ${this.player.y * -0.005}px)`;
-                if (mountain) mountain.style.transform = `translate(${this.player.x * -0.02}px, ${this.player.y * -0.01}px)`;
-                if (trees) trees.style.transform = `translate(${this.player.x * -0.05}px, ${this.player.y * -0.025}px)`;
-                if (path) path.style.transform = `translate(${this.player.x * -0.1}px, ${this.player.y * -0.05}px)`;
-                if (structure) structure.style.transform = `translate(${this.player.x * -0.15}px, ${this.player.y * -0.075}px)`;
-            }
-
 
             
             initializeElements() {
@@ -1776,7 +1763,6 @@
             this.movePlayer();
             this.moveCreatures();
             this.updateUI();
-            this.updateBackgroundPosition(); // <-- ici
 
             const now = Date.now();
             if (now - this.lastCreatureSpawn > this.creatureSpawnRate) {
